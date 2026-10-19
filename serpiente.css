@@ -1,142 +1,751 @@
+
+/* =========================================================
+   SERPIENTE GAMER — PREMIUM EDITION
+   Diseño responsive, efectos neon y fondo cinematográfico
+   Compatible con el HTML y JavaScript existentes
+   ========================================================= */
+
+:root {
+    color-scheme: dark;
+
+    --negro: #07070b;
+    --panel: rgba(17, 17, 25, 0.88);
+    --blanco: #ffffff;
+    --gris: #b8bac8;
+    --violeta: #a855f7;
+    --rosa: #ff477e;
+    --azul: #59d9ff;
+    --verde: #72ffb0;
+
+    --borde: rgba(255, 255, 255, 0.13);
+    --radio: 22px;
+    --transicion: 240ms ease;
+}
+
+/* 1. CONFIGURACIÓN GENERAL */
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
+}
+
+html {
+    min-height: 100%;
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
+    position: relative;
+    isolation: isolate;
     min-height: 100vh;
-    background: linear-gradient(135deg, #1e293b, #0f172a);
-    color: white;
+    min-height: 100dvh;
+
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+
+    padding: clamp(14px, 3vw, 36px);
+
+    overflow-x: hidden;
+
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Helvetica, Arial, sans-serif;
+
+    color: var(--blanco);
+    background: var(--negro);
+
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
 }
+
+/* 2. FONDO CINEMATOGRÁFICO CON TU IMAGEN */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(7, 7, 11, 0.43),
+            rgba(7, 7, 11, 0.76) 65%,
+            rgba(7, 7, 11, 0.94)
+        ),
+        url("fondoRosa.png") center / cover no-repeat;
+
+    opacity: 0.92;
+    transform: scale(1.025);
+
+    animation: fondoRespira 18s ease-in-out infinite alternate;
+}
+
+@keyframes fondoRespira {
+    from {
+        transform: scale(1.025);
+        filter: saturate(0.9);
+    }
+
+    to {
+        transform: scale(1.075);
+        filter: saturate(1.2);
+    }
+}
+
+/* 3. PARTÍCULAS LUMINOSAS FLOTANTES */
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: -20%;
+    z-index: -1;
+    pointer-events: none;
+
+    background-image:
+        radial-gradient(circle, rgba(255, 255, 255, 0.85) 0 1px, transparent 2px),
+        radial-gradient(circle, rgba(255, 90, 170, 0.85) 0 2px, transparent 4px),
+        radial-gradient(circle, rgba(110, 220, 255, 0.75) 0 1px, transparent 3px),
+        radial-gradient(circle, rgba(195, 125, 255, 0.7) 0 2px, transparent 4px),
+        radial-gradient(circle, rgba(255, 190, 90, 0.75) 0 1px, transparent 3px);
+
+    background-size:
+        113px 137px,
+        179px 193px,
+        149px 167px,
+        223px 211px,
+        197px 157px;
+
+    background-position:
+        0 0,
+        35px 65px,
+        80px 20px,
+        110px 90px,
+        50px 130px;
+
+    opacity: 0.48;
+    filter: blur(1.5px);
+
+    animation:
+        particulasFlotan 32s linear infinite,
+        particulasBrillan 5s ease-in-out infinite alternate;
+}
+
+@keyframes particulasFlotan {
+    from {
+        background-position:
+            0 0,
+            35px 65px,
+            80px 20px,
+            110px 90px,
+            50px 130px;
+    }
+
+    to {
+        background-position:
+            0 -700px,
+            260px -520px,
+            -180px -650px,
+            320px -800px,
+            -100px -600px;
+    }
+}
+
+@keyframes particulasBrillan {
+    from {
+        opacity: 0.22;
+    }
+
+    to {
+        opacity: 0.62;
+    }
+}
+
+/* 4. CONTENEDOR PRINCIPAL */
 
 .contenedor-juego {
+    position: relative;
+    isolation: isolate;
+
     width: 100%;
-    max-width: 720px;
-    background: #111827;
-    border-radius: 20px;
-    padding: 24px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+    max-width: 760px;
+
+    padding: clamp(22px, 4vw, 42px);
+
     text-align: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(31, 28, 43, 0.96),
+            rgba(8, 8, 14, 0.96) 55%,
+            rgba(24, 12, 27, 0.96)
+        );
+
+    border: 1px solid rgba(255, 255, 255, 0.19);
+    border-radius: 30px;
+
+    box-shadow:
+        0 35px 100px rgba(0, 0, 0, 0.65),
+        0 0 0 1px rgba(255, 255, 255, 0.035),
+        0 0 65px rgba(255, 50, 125, 0.09),
+        inset 0 1px 0 rgba(255, 255, 255, 0.13);
+
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+
+    animation: entradaJuego 800ms cubic-bezier(.2, .8, .2, 1) both;
 }
 
+.contenedor-juego::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 14%;
+    right: 14%;
+    height: 2px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        #ff477e,
+        #a855f7,
+        #59d9ff,
+        transparent
+    );
+
+    filter: drop-shadow(0 0 8px rgba(168, 85, 247, 0.8));
+}
+
+@keyframes entradaJuego {
+    from {
+        opacity: 0;
+        transform: translateY(24px) scale(0.975);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+/* 5. TÍTULO Y COBRA ARCOÍRIS */
+
 h1 {
-    margin-bottom: 10px;
-    font-size: 32px;
-    color: #22c55e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    margin-bottom: 14px;
+
+    font-size: clamp(27px, 5vw, 43px);
+    font-weight: 900;
+    line-height: 1.2;
+    letter-spacing: -1.5px;
+
+    color: #ffffff;
+
+    text-shadow:
+        0 2px 0 rgba(255, 255, 255, 0.1),
+        0 0 22px rgba(255, 255, 255, 0.12);
+}
+
+/* El emoji existente se transforma en un icono animado.
+   No es necesario modificar el HTML. */
+
+h1::first-letter {
+    display: inline-block;
+    animation: cobraArcoiris 5s linear infinite;
+}
+
+@keyframes cobraArcoiris {
+    0% {
+        filter: hue-rotate(0deg) drop-shadow(0 0 5px #ff477e);
+    }
+
+    50% {
+        filter: hue-rotate(180deg) drop-shadow(0 0 12px #59d9ff);
+    }
+
+    100% {
+        filter: hue-rotate(360deg) drop-shadow(0 0 5px #ff477e);
+    }
 }
 
 .descripcion {
-    margin-bottom: 18px;
-    color: #cbd5e1;
-    line-height: 1.5;
+    max-width: 510px;
+    margin: 0 auto 28px;
+
+    color: #e3dce9;
+    font-size: clamp(14px, 2vw, 17px);
+    line-height: 1.8;
+    font-weight: 500;
+
+    text-wrap: pretty;
 }
+
+/* 6. TARJETAS DE INFORMACIÓN */
 
 .panel-info {
     display: flex;
-    justify-content: space-between;
-    gap: 12px;
-    margin-bottom: 16px;
+    justify-content: center;
+    gap: 15px;
     flex-wrap: wrap;
+
+    margin-bottom: 24px;
 }
 
 .tarjeta-info {
-    flex: 1;
-    min-width: 150px;
-    background: #1f2937;
-    padding: 14px;
-    border-radius: 14px;
-    border: 1px solid #374151;
+    position: relative;
+    isolation: isolate;
+
+    display: flex;
+    flex: 1 1 180px;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+
+    min-width: 0;
+    padding: 20px 18px;
+
+    overflow: hidden;
+
+    background: linear-gradient(
+        145deg,
+        rgba(255, 255, 255, 0.105),
+        rgba(255, 255, 255, 0.025)
+    );
+
+    border: 1px solid var(--borde);
+    border-radius: var(--radio);
+
+    box-shadow:
+        0 12px 28px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.07);
+
+    transition:
+        transform var(--transicion),
+        border-color var(--transicion),
+        box-shadow var(--transicion);
+}
+
+.tarjeta-info:hover {
+    transform: translateY(-4px);
+
+    border-color: rgba(255, 90, 170, 0.5);
+
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.3),
+        0 0 22px rgba(255, 71, 126, 0.08);
 }
 
 .tarjeta-info span {
-    display: block;
-    font-size: 14px;
-    color: #94a3b8;
-    margin-bottom: 4px;
+    color: #d5d1df;
+
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
 }
 
 .tarjeta-info strong {
-    font-size: 24px;
-    color: #facc15;
+    color: #ffffff;
+
+    font-size: clamp(25px, 4vw, 34px);
+    font-weight: 900;
+    line-height: 1.2;
+
+    overflow-wrap: anywhere;
+
+    text-shadow: 0 0 20px rgba(255, 71, 126, 0.4);
 }
 
+#puntaje {
+    color: #ff8cbd;
+}
+
+#estado {
+    color: #83eaff;
+    font-size: clamp(19px, 3vw, 25px);
+}
+
+/* 7. TABLERO DEL JUEGO */
+
 canvas {
+    display: block;
+
     width: 100%;
     max-width: 500px;
-    background: #020617;
-    border: 4px solid #22c55e;
-    border-radius: 16px;
-    display: block;
-    margin: 0 auto 20px auto;
+    height: auto;
+    aspect-ratio: 1 / 1;
+
+    margin: 0 auto 27px;
+
+    border: 3px solid transparent;
+    border-radius: 21px;
+
+    background-color: #fffaf6;
+
+    background-image:
+        linear-gradient(#fffaf6, #fffaf6),
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #ff477e,
+            #a855f7,
+            #59d9ff,
+            #ffffff
+        );
+
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+
+    box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.08),
+        0 18px 45px rgba(0, 0, 0, 0.4),
+        0 0 32px rgba(255, 71, 126, 0.13);
+
+    transition:
+        box-shadow var(--transicion),
+        border-color var(--transicion);
 }
+
+canvas:hover {
+    box-shadow:
+        0 18px 45px rgba(0, 0, 0, 0.45),
+        0 0 38px rgba(168, 85, 247, 0.19);
+}
+
+/* 8. CONTROLES DIRECCIONALES */
 
 .controles {
     display: grid;
-    grid-template-columns: repeat(3, 90px);
-    gap: 10px;
+    grid-template-columns: repeat(3, minmax(0, 76px));
+
+    gap: 11px;
     justify-content: center;
     align-items: center;
-    margin-bottom: 18px;
+
+    margin: 0 auto 27px;
 }
 
 .controles button,
 .acciones button {
-    border: none;
-    border-radius: 12px;
-    padding: 12px 16px;
-    background: #22c55e;
-    color: #052e16;
-    font-weight: bold;
+    position: relative;
+
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    min-width: 0;
+    min-height: 52px;
+    padding: 12px 18px;
+
+    overflow: hidden;
+
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+
+    background: linear-gradient(
+        145deg,
+        #ffffff,
+        #e7e7ed
+    );
+
+    color: #101014;
+
+    font: inherit;
+    font-size: 20px;
+    font-weight: 900;
+
     cursor: pointer;
-    transition: 0.2s;
+    touch-action: manipulation;
+    user-select: none;
+    -webkit-user-select: none;
+
+    box-shadow:
+        0 5px 0 #aaaab5,
+        0 10px 20px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 #ffffff;
+
+    transition:
+        transform 150ms ease,
+        background 180ms ease,
+        color 180ms ease,
+        box-shadow 180ms ease,
+        border-color 180ms ease;
+}
+
+.controles button::before,
+.acciones button::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background: linear-gradient(
+        120deg,
+        transparent 20%,
+        rgba(255, 255, 255, 0.5) 50%,
+        transparent 80%
+    );
+
+    transform: translateX(-120%);
+    transition: transform 450ms ease;
+
+    pointer-events: none;
 }
 
 .controles button:hover,
 .acciones button:hover {
-    transform: scale(1.05);
-    background: #86efac;
+    transform: translateY(-3px);
+
+    background: #14141c;
+    color: #ffffff;
+
+    border-color: rgba(255, 255, 255, 0.55);
+
+    box-shadow:
+        0 7px 0 #050507,
+        0 14px 28px rgba(0, 0, 0, 0.4),
+        0 0 20px rgba(255, 255, 255, 0.09);
 }
 
-.vacio {
-    visibility: hidden;
+.controles button:hover::before,
+.acciones button:hover::before {
+    transform: translateX(120%);
 }
+
+.controles button:active,
+.acciones button:active {
+    transform: translateY(3px) scale(0.97);
+
+    box-shadow:
+        0 1px 0 #555,
+        0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.controles button:focus-visible,
+.acciones button:focus-visible {
+    outline: 3px solid #83eaff;
+    outline-offset: 4px;
+}
+
+.controles .vacio {
+    visibility: hidden;
+    pointer-events: none;
+    box-shadow: none;
+}
+
+/* 9. BOTONES PRINCIPALES */
 
 .acciones {
     display: flex;
     justify-content: center;
-    gap: 12px;
+    align-items: stretch;
     flex-wrap: wrap;
+    gap: 14px;
+
+    margin-bottom: 5px;
 }
+
+.acciones button {
+    flex: 1 1 170px;
+    max-width: 240px;
+
+    min-height: 54px;
+    padding: 15px 24px;
+
+    border-radius: 16px;
+
+    font-size: 15px;
+    font-weight: 900;
+    letter-spacing: 0.7px;
+    text-transform: uppercase;
+}
+
+/* Reiniciar: contraste invertido */
 
 .acciones .secundario {
-    background: #38bdf8;
-    color: #082f49;
+    background: linear-gradient(
+        145deg,
+        #22222c,
+        #0c0c12
+    );
+
+    color: #ffffff;
+
+    border-color: rgba(255, 255, 255, 0.23);
+
+    box-shadow:
+        0 5px 0 #030305,
+        0 10px 20px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
+
+.acciones .secundario:hover {
+    background: #ffffff;
+    color: #101014;
+
+    border-color: #ffffff;
+
+    box-shadow:
+        0 7px 0 #b8b8c1,
+        0 14px 28px rgba(0, 0, 0, 0.3),
+        0 0 22px rgba(255, 255, 255, 0.12);
+}
+
+/* 10. MENSAJES DEL JUEGO */
 
 .mensaje {
-    margin-top: 14px;
-    color: #e2e8f0;
-    min-height: 24px;
-    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    min-height: 46px;
+    margin-top: 20px;
+    padding: 12px 16px;
+
+    color: #f0eaf6;
+    background: rgba(255, 255, 255, 0.045);
+
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 14px;
+
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.6;
+
+    overflow-wrap: anywhere;
 }
 
-@media (max-width: 520px) {
+/* 11. RESPONSIVE: TABLETS Y MÓVILES */
+
+@media (max-width: 600px) {
+    body {
+        align-items: flex-start;
+        padding: 15px 11px;
+    }
+
+    .contenedor-juego {
+        padding: 24px 15px;
+        border-radius: 23px;
+    }
+
     h1 {
-        font-size: 24px;
+        gap: 8px;
+        letter-spacing: -0.8px;
+    }
+
+    .descripcion {
+        margin-bottom: 22px;
+    }
+
+    .panel-info {
+        gap: 10px;
+        margin-bottom: 19px;
+    }
+
+    .tarjeta-info {
+        flex: 1 1 120px;
+        padding: 15px 10px;
+        border-radius: 17px;
+    }
+
+    .tarjeta-info span {
+        font-size: 11px;
+        letter-spacing: 1.2px;
+    }
+
+    canvas {
+        margin-bottom: 23px;
+        border-radius: 15px;
     }
 
     .controles {
-        grid-template-columns: repeat(3, 75px);
+        grid-template-columns: repeat(3, minmax(0, 66px));
+        gap: 9px;
     }
 
-    .controles button,
-    .acciones button {
+    .controles button {
+        min-height: 50px;
         padding: 10px;
+        border-radius: 13px;
+    }
+
+    .acciones {
+        gap: 10px;
+    }
+
+    .acciones button {
+        flex-basis: 140px;
+        min-height: 50px;
+        padding: 13px 15px;
+        font-size: 13px;
+    }
+}
+
+/* 12. MÓVILES MUY PEQUEÑOS */
+
+@media (max-width: 360px) {
+    body {
+        padding: 9px 7px;
+    }
+
+    .contenedor-juego {
+        padding: 20px 10px;
+    }
+
+    h1 {
+        font-size: 25px;
+    }
+
+    .controles {
+        grid-template-columns: repeat(3, minmax(0, 57px));
+        gap: 8px;
+    }
+
+    .controles button {
+        min-height: 46px;
+        font-size: 17px;
+    }
+
+    .acciones button {
+        flex-basis: 100%;
+        max-width: none;
+    }
+}
+
+/* 13. PANTALLAS GRANDES */
+
+@media (min-width: 1100px) {
+    .contenedor-juego {
+        max-width: 790px;
+        padding: 42px;
+    }
+
+    .panel-info {
+        gap: 20px;
+    }
+
+    .controles {
+        gap: 12px;
+    }
+}
+
+/* 14. ACCESIBILIDAD: MOVIMIENTO REDUCIDO */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
     }
 }
