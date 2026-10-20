@@ -67,5 +67,4 @@
       ctx.fillRect(posicnX,posicnY,TAMANIO_CELDA,TAMANIO_CELDA);
       ctx.strokeStyle="#fffffff1";
       ctx.strokeRect(posicnX,posicnY,TAMANIO_CELDA,TAMANIO_CELDA);
-
     }
