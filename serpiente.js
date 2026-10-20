@@ -8,6 +8,8 @@
     let intervaloSerpiente;
     //direccion
     let direccionActual='abajo';
+    //puntaje
+    let puntaje;    
     //arreglo
     const serpiente=[
       //Cabeza serpiente
@@ -28,9 +30,14 @@
       {x:14,y:12},
       {x:14,y:13}
     ];
+    //Posicion de comida
+    let comidaX;
+    let comidaY;
 
 //---------------------------------------------------------
     // Primera pintura del juego al cargar la página
+    puntaje=0;
+    generarComida();
     dibujarTodo();
 
 //FUNCIONES DE DIBUJO--------------------------------------
@@ -42,6 +49,7 @@
     function dibujarTodo() {
       limpiarCanvas();
       dibujarTablero();
+      pintarComida();
       pintarSerpiente();
     }
     //Dibuja Tablero
@@ -85,15 +93,13 @@
 
 //FUNCIONES DE MOVIMIENTO--------------------------------------
 //Mover a la derecha
-  function moverDerecha(){
-    let cabeza=serpiente[0];
-    let nuevaCabeza={
-      x:cabeza.x+1,
-      y:cabeza.y
-    }
-    serpiente.unshift(nuevaCabeza);
-    serpiente.pop();
-    dibujarTodo();
+  function moverDerecha() {
+  let cabeza = serpiente[0];
+  let nuevaCabeza={
+    x:cabeza.x+1,
+    y:cabeza.y
+  }
+  serpiente.unshift(nuevaCabeza);
   }
 //Mover a la izquierda
   function moverIzquierda(){
@@ -103,8 +109,6 @@
       y:cabeza.y
     }
     serpiente.unshift(nuevaCabeza);
-    serpiente.pop();
-    dibujarTodo();
   }
 //Mover arriba
   function moverArriba(){
@@ -114,8 +118,6 @@
       y:cabeza.y-1
     }
     serpiente.unshift(nuevaCabeza);
-    serpiente.pop();
-    dibujarTodo();
   }
 //Mover abajo
   function moverAbajo(){
@@ -125,21 +127,22 @@
       y:cabeza.y+1
     }
     serpiente.unshift(nuevaCabeza);
-    serpiente.pop();
-    dibujarTodo();
   }
-
   //Guarda la direccion
   function cambiarDireccion(direccion){
     direccionActual=direccion;
   }
   //Inicar juego
     function iniciarJuego(){
-      intervaloSerpiente=setInterval(moverSerpiente,1000);
+      if(intervaloSerpiente!=null){
+        return;
+      }
+      intervaloSerpiente=setInterval(moverSerpiente,250);
     } 
   //Pausar juego
     function pausarJuego(){
       clearInterval(intervaloSerpiente);
+      intervaloSerpiente=null;
     }
   //Mover Serpiente
     function moverSerpiente(){
@@ -157,5 +160,32 @@
           moverArriba();
           break;
       }
-      pintarSerpiente();
+      if(atraparComida()==true){
+        let cmpPuntaje=document.getElementById("puntaje");
+        puntaje=Number(cmpPuntaje.textContent);
+        puntaje=puntaje+1;
+        cmpPuntaje.textContent=puntaje;
+        generarComida();
+      }else{
+        serpiente.pop();
+      }
+        dibujarTodo();
     }
+//FUNCIONES COMIDA--------------------------------------
+//Pintar comida
+  function generarComida(){
+    comidaX=Math.floor(Math.random()*(canvas.width/TAMANIO_CELDA));
+    comidaY=Math.floor(Math.random()*(canvas.height/TAMANIO_CELDA));
+  }
+  function pintarComida(){
+    ctx.fillStyle="#c9e20e";
+    pintarParte(comidaX,comidaY);
+  }
+//Atrapa comida
+  function atraparComida(){
+  if (serpiente[0].x == comidaX &&
+      serpiente[0].y == comidaY) {
+  return true;
+  }
+  return false;
+}
