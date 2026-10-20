@@ -1,0 +1,26 @@
+Toma el rol de programador full stack especializado en
+ diseño web y animaciones profesionales
+
+Objetivo: Estilizar profesionalmente Web gamer( juego serpiente),
+con diseño estilo apple imponente nada limpio mas voluminoso.
+
+Acciones:
+1. Estiliza botones con principal apariencia visual perfecta a 
+la vista de todo tipo de usuarios con color blanco y negro e 
+invertido Estilo la mejor web de videojuegos del planeta.
+2. Usa colores en letras perfectamente constrastados en color 
+y brillo para una apariencia de letras visualmente perfectas.
+3. añade fondo animado bolitas flotantes difuminadas deben ser 
+varias elige si desaparecen o se mueve en plan diseño web gamer 
+profesional.
+4. Perfecciona titulo en diseño primera vision del usuario, crea 
+un icono logo como de una cobra geometrica con colores arcoiris 
+animada que se mueva al inicio de web.
+5. Web debe ser totalmente responsive y funcional en cualquier 
+tipo de dispositivo pantalla.
+6. integra fondo con brillo contraste bajo a background de web: 
+fondoRosa.png esta en carpeta raiz.
+7. maneja espaciado perfecto en contenedores y botones animados 
+al tocarlos.
+
+Dame nuevo codigo css.
