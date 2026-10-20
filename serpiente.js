@@ -46,18 +46,6 @@
         ctx.lineTo(canvas.width,y);
         ctx.stroke();
       }
-      //Ejemplo de Prueba
-      /*ctx.strokeStyle="#d61111";
-      ctx.beginPath();
-      ctx.moveTo(25,0);
-      ctx.lineTo(25,canvas.height);
-      ctx.stroke();
-
-      ctx.strokeStyle="rgb(238, 132, 10)";
-      ctx.beginPath();
-      ctx.moveTo(50,0);
-      ctx.lineTo(50,canvas.height);
-      ctx.stroke();*/
     }
 
     function pintarParte(lineaX,lineaY){
