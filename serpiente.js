@@ -89,5 +89,57 @@
       }
       serpiente.unshift(nuevaCabeza);
       serpiente.pop();
-      dibujarTodo();
+    }
+  //Mover a la izquierda
+    function moverIzquierda(){
+      let cabeza=serpiente[0];
+      let nuevaCabeza={
+        x:cabeza.x-1,
+        y:cabeza.y
+      }
+      serpiente.unshift(nuevaCabeza);
+      serpiente.pop();
+    }
+  //Mover arriba
+  function moverArriba(){
+    let cabeza=serpiente[0];
+    let nuevaCabeza={
+      x:cabeza.x,
+      y:cabeza.y-1
+    }
+    serpiente.unshift(nuevaCabeza);
+    serpiente.pop();
+  }
+  //Mover abajo
+  function moverAbajo(){
+    let cabeza=serpiente[0];
+    let nuevaCabeza={
+      x:cabeza.x,
+      y:cabeza.y+1
+    }
+    serpiente.unshift(nuevaCabeza);
+    serpiente.pop();
+  }
+
+    
+  //Cambio de direccion recibiendo la direccion
+    function cambiarDireccion(direccion){
+      switch(direccion){
+        case "derecha":
+          moverDerecha();
+          dibujarTodo();
+          break;
+        case "izquierda":
+          moverIzquierda();
+          dibujarTodo();
+          break;
+        case "arriba":
+          moverArriba();
+          dibujarTodo();
+          break;
+        case "abajo":
+          moverAbajo();
+          dibujarTodo();
+          break;
+      }
     }
