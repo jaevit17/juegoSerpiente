@@ -6,6 +6,8 @@
     const TAMANIO_CELDA=25;
     //intervalo
     let intervaloSerpiente;
+    //direccion
+    let direccionActual='abajo';
     //arreglo
     const serpiente=[
       //Cabeza serpiente
@@ -91,6 +93,7 @@
     }
     serpiente.unshift(nuevaCabeza);
     serpiente.pop();
+    dibujarTodo();
   }
 //Mover a la izquierda
   function moverIzquierda(){
@@ -101,6 +104,7 @@
     }
     serpiente.unshift(nuevaCabeza);
     serpiente.pop();
+    dibujarTodo();
   }
 //Mover arriba
   function moverArriba(){
@@ -111,6 +115,7 @@
     }
     serpiente.unshift(nuevaCabeza);
     serpiente.pop();
+    dibujarTodo();
   }
 //Mover abajo
   function moverAbajo(){
@@ -121,30 +126,13 @@
     }
     serpiente.unshift(nuevaCabeza);
     serpiente.pop();
+    dibujarTodo();
   }
 
-//Cambio de direccion recibiendo la direccion
+  //Guarda la direccion
   function cambiarDireccion(direccion){
-    switch(direccion){
-      case "derecha":
-        moverDerecha();
-        dibujarTodo();
-        break;
-      case "izquierda":
-        moverIzquierda();
-        dibujarTodo();
-        break;
-      case "arriba":
-        moverArriba();
-        dibujarTodo();
-        break;
-      case "abajo":
-        moverAbajo();
-        dibujarTodo();
-        break;
-    }
+    direccionActual=direccion;
   }
-
   //Inicar juego
     function iniciarJuego(){
       intervaloSerpiente=setInterval(moverSerpiente,1000);
@@ -152,9 +140,22 @@
   //Pausar juego
     function pausarJuego(){
       clearInterval(intervaloSerpiente);
-      
     }
   //Mover Serpiente
     function moverSerpiente(){
-      console.log("moviendo");
+      switch(direccionActual){
+        case "derecha":
+          moverDerecha();
+          break;
+        case "izquierda":
+          moverIzquierda();
+          break;
+        case "abajo":
+          moverAbajo();
+          break;
+        case "arriba":
+          moverArriba();
+          break;
+      }
+      pintarSerpiente();
     }
