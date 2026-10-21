@@ -1,5 +1,4 @@
-
-    // 1. Capturamos el canvas y su contexto de dibujo
+// 1. Capturamos el canvas y su contexto de dibujo
     const canvas = document.getElementById("canvasJuego");
     const ctx = canvas.getContext("2d");
     //tamaño celda
@@ -10,6 +9,10 @@
     let direccionActual='abajo';
     //puntaje
     let puntaje;    
+    //puntaje
+    let velocidad=250;  
+    //gameover
+    let gameOver=false;
     //arreglo
     const serpiente=[
       //Cabeza serpiente
@@ -51,6 +54,21 @@
       dibujarTablero();
       pintarComida();
       pintarSerpiente();
+    }
+    //Muestra GAMEOVER en canva
+    function dibujarGameOver() {
+      // Fondo oscuro
+      ctx.fillStyle = "#11182791";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      // Mensaje principal
+      ctx.fillStyle = "#ff4057";
+      ctx.font = "bold 35px monospace";
+      ctx.textAlign = "center";
+      ctx.fillText("GAME OVER", canvas.width / 2, canvas.height / 2);
+      // Instrucción
+      ctx.fillStyle = "#ffffff";
+      ctx.font = "16px monospace";
+      ctx.fillText("Presiona REINICIAR", canvas.width / 2, canvas.height / 2 + 35);
     }
     //Dibuja Tablero
     function dibujarTablero(){
@@ -130,19 +148,66 @@
   }
   //Guarda la direccion
   function cambiarDireccion(direccion){
-    direccionActual=direccion;
+    if(direccionActual=="derecha"&&direccion=="izquierda"){
+    return;
+    }
+    if(direccionActual=="izquierda"&&direccion=="derecha"){
+    return;
+    }
+    if(direccionActual=="arriba"&&direccion=="abajo"){
+    return;
+    }
+    if(direccionActual=="abajo"&&direccion=="arriba"){
+    return;
+    }
+    direccionActual = direccion;
   }
   //Inicar juego
     function iniciarJuego(){
       if(intervaloSerpiente!=null){
         return;
       }
-      intervaloSerpiente=setInterval(moverSerpiente,250);
+      intervaloSerpiente=setInterval(moverSerpiente,velocidad);
     } 
   //Pausar juego
     function pausarJuego(){
       clearInterval(intervaloSerpiente);
       intervaloSerpiente=null;
+    }
+  //Reiniciar juego
+    function reiniciarJuego(){
+      pausarJuego();
+      //elimina todas las partes de la serpiente
+      serpiente.length=0
+      serpiente.push(
+        {x:8, y:9},
+        {x:8, y:8},
+        {x:8, y:7},
+        {x:9, y:7},
+        {x:10, y:7},
+        {x:11, y:7},
+        {x:12, y:7},
+        {x:12, y:8},
+        {x:12, y:9},
+        {x:12, y:10},
+        {x:12, y:11},
+        {x:13, y:11},
+        {x:14, y:11},
+        {x:14, y:12},
+        {x:14, y:13}
+      )
+      //velocidad
+      velocidad=250;
+      //reinicia direccion
+      direccionActual='abajo';
+      //reinicia puntaje
+      puntaje=0
+      document.getElementById("puntaje").textContent=puntaje;
+      //limpiar gameover
+      gameOver=false;
+      //generar comida y tablero
+      generarComida();
+      dibujarTodo();
     }
   //Mover Serpiente
     function moverSerpiente(){
@@ -160,17 +225,45 @@
           moverArriba();
           break;
       }
+      //comprobar si choco con borde
+      if(chocarConBorde()==true){
+        gameOver=true;
+        pausarJuego();
+        dibujarTodo();
+        dibujarGameOver();
+        return;
+      }
       if(atraparComida()==true){
         let cmpPuntaje=document.getElementById("puntaje");
         puntaje=Number(cmpPuntaje.textContent);
         puntaje=puntaje+1;
         cmpPuntaje.textContent=puntaje;
         generarComida();
+        aumentarVelocidad();
+        actualizarVelocidad();
       }else{
         serpiente.pop();
       }
         dibujarTodo();
     }
+    //Chocar con borde
+    function chocarConBorde(){
+      let cabeza=serpiente[0];
+      if (cabeza.x < 0) {
+      return true;
+      }
+      if (cabeza.y < 0) {
+      return true;
+      }
+      if (cabeza.x >= canvas.width / TAMANIO_CELDA) {
+      return true;
+      }
+      if (cabeza.y >= canvas.height / TAMANIO_CELDA) {
+      return true;
+      }
+      return false;
+    }
+
 //FUNCIONES COMIDA--------------------------------------
 //Pintar comida
   function generarComida(){
@@ -188,4 +281,15 @@
   return true;
   }
   return false;
+}
+
+//FUNCIONES VELOCIDAD--------------------------------------
+  function aumentarVelocidad(){
+    if(velocidad>80){
+      velocidad=velocidad-30;
+    }
+  }
+  function actualizarVelocidad() {
+  pausarJuego();
+  iniciarJuego();
 }
