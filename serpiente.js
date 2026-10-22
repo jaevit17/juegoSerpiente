@@ -13,6 +13,8 @@
     let velocidad=250;  
     //gameover
     let gameOver=false;
+    //gameIniciado
+    let juegoIniciado=false;
     //arreglo
     const serpiente=[
       //Cabeza serpiente
@@ -54,6 +56,9 @@
       dibujarTablero();
       pintarComida();
       pintarSerpiente();
+      if(gameOver==false&&juegoIniciado==false){
+        dibujarInicio();
+      }
     }
     //Muestra GAMEOVER en canva
     function dibujarGameOver() {
@@ -70,6 +75,21 @@
       ctx.font = "16px monospace";
       ctx.fillText("Presiona REINICIAR", canvas.width / 2, canvas.height / 2 + 35);
     }
+    //Muestra Snake GAME inicio
+    function dibujarInicio(){
+      ctx.fillStyle = "#11182791";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#00ffe1";
+      ctx.font = "bold 30px monospace";
+      ctx.textAlign="center";
+      ctx.fillText("SNAKE GAME",canvas.width/2,canvas.height/2-15);
+      ctx.fillStyle = "#ffffff";
+      ctx.font = "15px monospace";
+      ctx.fillText(
+      "Presiona INICIO para jugar",canvas.width/2,canvas.height/2+25);
+    }
+    
+
     //Dibuja Tablero
     function dibujarTablero(){
       ctx.strokeStyle="#838080";
@@ -98,16 +118,28 @@
       ctx.strokeRect(posicnX,posicnY,TAMANIO_CELDA,TAMANIO_CELDA);
     }
     //Pinta Serpiente
-    function pintarSerpiente(){
-      for(let i=0;i<serpiente.length;i++){
-        if(i==0){
-          ctx.fillStyle="#08dbc6";
-        }else{
-          ctx.fillStyle="#2abe5e"
-        }
-        pintarParte(serpiente[i].x,serpiente[i].y);
+  function pintarSerpiente(){
+    for(let i=0;i<serpiente.length;i++){
+      if(i==0){
+      // Cabeza rosa brillante
+      ctx.fillStyle="#ff2e93";
       }
+      else if(i%3==0){
+      // Violeta
+      ctx.fillStyle="#a855f7";
+      }
+      else if(i%3==1){
+      // Rosa rojizo
+      ctx.fillStyle="#e63976";
+      }
+      else{
+      // Morado profundo
+      ctx.fillStyle="#7928ca";
+      }
+      pintarParte(serpiente[i].x,serpiente[i].y);
     }
+}
+
 
 //FUNCIONES DE MOVIMIENTO--------------------------------------
 //Mover a la derecha
@@ -167,6 +199,7 @@
       if(intervaloSerpiente!=null){
         return;
       }
+      juegoIniciado=true;
       intervaloSerpiente=setInterval(moverSerpiente,velocidad);
     } 
   //Pausar juego
@@ -231,6 +264,7 @@
         pausarJuego();
         dibujarTodo();
         dibujarGameOver();
+        reproducirSonido(400,0.5);
         return;
       }
       if(atraparComida()==true){
@@ -238,6 +272,7 @@
         puntaje=Number(cmpPuntaje.textContent);
         puntaje=puntaje+1;
         cmpPuntaje.textContent=puntaje;
+        reproducirSonido(-6000,0.1);
         generarComida();
         aumentarVelocidad();
         actualizarVelocidad();
@@ -290,6 +325,49 @@
     }
   }
   function actualizarVelocidad() {
-  pausarJuego();
-  iniciarJuego();
+  pausarJuego();// velocidad actual para
+  iniciarJuego();// velocidad nueva ingresa
 }
+
+//FUNCIONES DE SONIDO--------------------------------------
+  function reproducirSonido(frecuencia,duracion){
+    let audio=new AudioContext();
+    let sonido=audio.createOscillator();
+    sonido.frequency.value=frecuencia;
+    sonido.connect(audio.destination);
+    sonido.start();
+    sonido.stop(audio.currentTime+duracion);
+  }
+
+  
+//TECLADO--------------------------------------
+
+document.addEventListener("keydown", function(event) {
+
+  const teclas = {
+    "ArrowUp": "arriba",
+    "w": "arriba",
+    "W": "arriba",
+
+    "ArrowDown": "abajo",
+    "s": "abajo",
+    "S": "abajo",
+
+    "ArrowLeft": "izquierda",
+    "a": "izquierda",
+    "A": "izquierda",
+
+    "ArrowRight": "derecha",
+    "d": "derecha",
+    "D": "derecha"
+  };
+
+  const direccion = teclas[event.key];
+
+  if (direccion) {
+    event.preventDefault();
+    cambiarDireccion(direccion);
+  }
+
+});
+

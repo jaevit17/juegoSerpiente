@@ -749,3 +749,464 @@ canvas:hover {
         transition-duration: 0.01ms !important;
     }
 }
+
+
+/* 15. MEJORA PREMIUM DEL TABLERO */
+
+canvas {
+    image-rendering: auto;
+    outline: none;
+
+    box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.12),
+        0 15px 40px rgba(0, 0, 0, 0.45),
+        0 0 28px rgba(89, 217, 255, 0.12);
+}
+
+canvas:hover {
+    box-shadow:
+        0 0 0 1px rgba(89, 217, 255, 0.35),
+        0 18px 45px rgba(0, 0, 0, 0.5),
+        0 0 35px rgba(89, 217, 255, 0.2);
+}
+
+/* 16. MEJOR LEGIBILIDAD */
+
+.descripcion,
+.mensaje {
+    color: #f5f2ff;
+}
+
+.tarjeta-info span {
+    color: #e6e2f0;
+}
+
+/* 17. INTERACCIÓN MÁS CUIDADA */
+
+button {
+    -webkit-tap-highlight-color: transparent;
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* 18. MÓVILES: EVITAR DESBORDAMIENTOS */
+
+@media (max-width: 600px) {
+    .contenedor-juego {
+        width: 100%;
+        min-width: 0;
+    }
+
+    canvas {
+        max-width: 100%;
+    }
+
+    .acciones button {
+        overflow-wrap: anywhere;
+    }
+}
+
+
+/* =====================================================
+   15. REDISEÑO GAMER ULTRA — NEON ELITE
+   Negro profundo + violeta + rosa eléctrico + cian
+   ===================================================== */
+
+:root {
+    --negro: #05040b;
+    --panel: rgba(13, 10, 25, 0.96);
+    --blanco: #ffffff;
+    --gris: #d5cde7;
+    --violeta: #a855f7;
+    --rosa: #ff2e93;
+    --azul: #38e8ff;
+    --verde: #72ffb0;
+
+    --borde: rgba(183, 111, 255, 0.3);
+    --radio: 20px;
+    --transicion: 220ms ease;
+}
+
+/* FONDO: más oscuro y con colores intensos */
+
+body {
+    background:
+        radial-gradient(ellipse at 15% 10%, #32104d 0%, transparent 42%),
+        radial-gradient(ellipse at 85% 85%, #3a092e 0%, transparent 40%),
+        #05040b;
+}
+
+/* Conservamos tu imagen, pero reforzamos el ambiente */
+
+body::before {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(5, 4, 11, 0.48),
+            rgba(10, 4, 24, 0.73) 55%,
+            rgba(5, 4, 11, 0.82)
+        ),
+        url("assets/fondoRosa.png") center / cover no-repeat;
+
+    opacity: 0.95;
+}
+
+/* PANEL PRINCIPAL: cristal oscuro gamer */
+
+.contenedor-juego {
+    max-width: 800px;
+    padding: clamp(24px, 4vw, 42px);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(24, 15, 43, 0.97),
+            rgba(7, 6, 17, 0.98) 55%,
+            rgba(30, 8, 30, 0.96)
+        );
+
+    border: 1px solid rgba(193, 117, 255, 0.45);
+    border-radius: 28px;
+
+    box-shadow:
+        0 30px 90px rgba(0, 0, 0, 0.75),
+        0 0 35px rgba(168, 85, 247, 0.18),
+        0 0 80px rgba(255, 46, 147, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.13);
+}
+
+.contenedor-juego::before {
+    left: 5%;
+    right: 5%;
+    height: 3px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        #ff2e93,
+        #a855f7,
+        #38e8ff,
+        #a855f7,
+        #ff2e93,
+        transparent
+    );
+
+    filter: drop-shadow(0 0 10px #a855f7);
+}
+
+/* TÍTULO: identidad gamer */
+
+h1 {
+    color: #ffffff;
+    font-weight: 950;
+    letter-spacing: 1px;
+
+    text-shadow:
+        0 0 5px rgba(255, 255, 255, 0.4),
+        0 0 18px rgba(168, 85, 247, 0.8),
+        0 0 38px rgba(255, 46, 147, 0.35);
+}
+
+.descripcion {
+    color: #ded5f2;
+}
+
+/* TARJETAS: paneles tecnológicos */
+
+.tarjeta-info {
+    background:
+        linear-gradient(
+            145deg,
+            rgba(168, 85, 247, 0.14),
+            rgba(15, 12, 29, 0.92) 65%
+        );
+
+    border: 1px solid rgba(168, 85, 247, 0.38);
+    border-radius: 19px;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.32),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.tarjeta-info:hover {
+    transform: translateY(-5px) scale(1.015);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(168, 85, 247, 0.25),
+            rgba(19, 10, 34, 0.98)
+        );
+
+    border-color: #c084fc;
+
+    box-shadow:
+        0 12px 30px rgba(0, 0, 0, 0.4),
+        0 0 22px rgba(168, 85, 247, 0.22);
+}
+
+.tarjeta-info span {
+    color: #d8c9f2;
+    font-size: 12px;
+    letter-spacing: 2px;
+}
+
+.tarjeta-info strong {
+    color: #ffffff;
+    text-shadow: 0 0 16px rgba(168, 85, 247, 0.6);
+}
+
+#puntaje {
+    color: #ff68b0;
+    text-shadow: 0 0 18px rgba(255, 46, 147, 0.55);
+}
+
+#estado {
+    color: #55eaff;
+    text-shadow: 0 0 15px rgba(56, 232, 255, 0.4);
+}
+
+/* TABLERO: marco neón */
+
+canvas {
+    border: 2px solid #a855f7;
+    border-radius: 16px;
+
+    background-color: #090812;
+
+    background-image:
+        linear-gradient(#090812, #100b1c),
+        linear-gradient(
+            135deg,
+            #ff2e93,
+            #a855f7,
+            #38e8ff,
+            #a855f7,
+            #ff2e93
+        );
+
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+
+    box-shadow:
+        0 0 0 1px rgba(168, 85, 247, 0.2),
+        0 0 18px rgba(168, 85, 247, 0.28),
+        0 15px 40px rgba(0, 0, 0, 0.5);
+}
+
+canvas:hover {
+    box-shadow:
+        0 0 0 1px rgba(56, 232, 255, 0.45),
+        0 0 25px rgba(168, 85, 247, 0.4),
+        0 0 45px rgba(255, 46, 147, 0.13);
+}
+
+/* BOTONES DIRECCIONALES: violeta eléctrico */
+
+.controles button {
+    background: linear-gradient(
+        145deg,
+        #bb76ff,
+        #8536df 55%,
+        #5921a7
+    );
+
+    color: #ffffff;
+    border: 1px solid #d9b2ff;
+    border-radius: 14px;
+
+    box-shadow:
+        0 5px 0 #401475,
+        0 8px 20px rgba(0, 0, 0, 0.4),
+        0 0 15px rgba(168, 85, 247, 0.2);
+}
+
+.controles button:hover {
+    background: linear-gradient(
+        145deg,
+        #ff68b0,
+        #e52e93 60%,
+        #a71966
+    );
+
+    color: #ffffff;
+    border-color: #ffb1d6;
+
+    box-shadow:
+        0 5px 0 #791044,
+        0 10px 25px rgba(0, 0, 0, 0.4),
+        0 0 25px rgba(255, 46, 147, 0.45);
+}
+
+.controles button:active {
+    transform: translateY(4px) scale(0.96);
+
+    box-shadow:
+        0 1px 0 #791044,
+        0 0 14px rgba(255, 46, 147, 0.3);
+}
+
+/* BOTONES PRINCIPALES: degradado rosa-violeta */
+
+.acciones button {
+    color: #ffffff;
+
+    background: linear-gradient(
+        115deg,
+        #ff2e93,
+        #b42cff 55%,
+        #793dff
+    );
+
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
+
+    box-shadow:
+        0 5px 0 #51136e,
+        0 10px 25px rgba(0, 0, 0, 0.35),
+        0 0 20px rgba(255, 46, 147, 0.18);
+}
+
+.acciones button:hover {
+    background: linear-gradient(
+        115deg,
+        #ff5eac,
+        #c35aff 55%,
+        #9a71ff
+    );
+
+    color: #ffffff;
+    border-color: #ffffff;
+
+    box-shadow:
+        0 5px 0 #51136e,
+        0 12px 28px rgba(0, 0, 0, 0.4),
+        0 0 30px rgba(255, 46, 147, 0.38);
+}
+
+/* REINICIAR: botón oscuro con borde cian */
+
+.acciones .secundario {
+    background: linear-gradient(
+        145deg,
+        #151426,
+        #080812
+    );
+
+    color: #65edff;
+    border: 1px solid rgba(56, 232, 255, 0.55);
+
+    box-shadow:
+        0 5px 0 #03030a,
+        0 8px 20px rgba(0, 0, 0, 0.35),
+        0 0 15px rgba(56, 232, 255, 0.1);
+}
+
+.acciones .secundario:hover {
+    background: linear-gradient(
+        145deg,
+        #38e8ff,
+        #168cae
+    );
+
+    color: #05040b;
+    border-color: #a9f7ff;
+
+    box-shadow:
+        0 5px 0 #07566c,
+        0 10px 25px rgba(0, 0, 0, 0.4),
+        0 0 25px rgba(56, 232, 255, 0.4);
+}
+
+/* MENSAJE INFERIOR: consola gamer */
+
+.mensaje {
+    color: #f4eaff;
+
+    background: linear-gradient(
+        100deg,
+        rgba(168, 85, 247, 0.11),
+        rgba(255, 46, 147, 0.07),
+        rgba(56, 232, 255, 0.06)
+    );
+
+    border: 1px solid rgba(168, 85, 247, 0.28);
+    border-radius: 14px;
+}
+
+/* MÓVILES: conservamos el diseño adaptable */
+
+@media (max-width: 600px) {
+    .contenedor-juego {
+        padding: 23px 13px;
+        border-radius: 22px;
+    }
+
+    .tarjeta-info {
+        border-radius: 15px;
+    }
+
+    .controles button {
+        min-height: 48px;
+    }
+
+    .acciones button {
+        min-height: 52px;
+    }
+}
+
+/* ACCESIBILIDAD: respetar movimiento reducido */
+
+@media (prefers-reduced-motion: reduce) {
+    body::before,
+    body::after,
+    .contenedor-juego,
+    h1 {
+        animation: none !important;
+    }
+}
+
+/* LOGO ROSA: FLOTACIÓN Y BALANCEO */
+
+.titulo-juego {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.logo-serpiente {
+    width: clamp(58px, 9vw, 88px);
+    height: clamp(58px, 9vw, 88px);
+    object-fit: contain;
+
+    filter:
+        drop-shadow(0 0 7px rgba(255, 46, 147, 0.8))
+        drop-shadow(0 0 17px rgba(168, 85, 247, 0.6));
+
+    transform-origin: center;
+
+    animation: serpienteFlotante 3s ease-in-out infinite;
+}
+
+@keyframes serpienteFlotante {
+    0%, 100% {
+        transform: translateY(0) rotate(-5deg);
+    }
+
+    50% {
+        transform: translateY(-9px) rotate(5deg);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .logo-serpiente {
+        animation: none;
+    }
+}
